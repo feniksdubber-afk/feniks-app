@@ -227,10 +227,17 @@
 
         document.querySelectorAll('.slide').forEach(slide => observer.observe(slide));
 
-        function sendTelegramCmd(command) {
-            Telegram.WebApp.close();
-            window.location.href = `tg://resolve?domain=${BOT_USERNAME}&start=${command}`;
+                function sendTelegramCmd(command) {
+            // Telegramning rasmiy API orqali yashirin buyruq yuborish
+            const url = `https://t.me/${BOT_USERNAME}?start=${command}`;
+            Telegram.WebApp.openTelegramLink(url);
+            
+            // Va oynani silliq yopish
+            setTimeout(() => {
+                Telegram.WebApp.close();
+            }, 100);
         }
+
 
         function saveAdminData() {
             const name = document.getElementById('admName').value.trim().replace(/\s+/g, '_');
