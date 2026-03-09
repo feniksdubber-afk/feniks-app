@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Feniks Studio Elite</title>
+    
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: radial-gradient(circle at 50% 0%, #3a1000 0%, #0f0c0c 70%);
+            --primary-color: #ff5722;
+            --primary-glow: rgba(255, 87, 34, 0.8);
+            --card-bg: rgba(20, 15, 15, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.4s ease;
+        }
+
+        body {
+            background: #0f0c0c;
+            background-image: var(--bg-gradient);
+            color: #ffffff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-weight: 800;
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px var(--primary-glow);
+            margin-bottom: 20px;
+        }
+
+        /* 🎬 Loyiha tanlash menyusi */
+        .project-selector select {
+            width: 100%;
+            max-width: 380px;
+            padding: 12px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            border: 1px solid var(--primary-color);
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        .profile-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 25px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.2);
+            text-align: center;
+            border: 1px solid var(--primary-color);
+            width: 100%;
+            max-width: 380px;
+            margin-bottom: 20px;
+        }
+
+        /* 🦅 Animatsiya / Rasm Kontayneri */
+        .avatar-container {
+            font-size: 70px;
+            margin-bottom: 10px;
+            display: inline-block;
+            filter: drop-shadow(0 0 15px var(--primary-glow));
+            animation: float 3s infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        .username {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 2px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .role {
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* 💰 BALANS VA LEVEL QAYTARILDI */
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-box h3 { font-size: 11px; color: #aaa; text-transform: uppercase; margin-bottom: 5px;}
+        .stat-box p { font-size: 20px; font-weight: 800; }
+        .balance-text { color: #4caf50; }
+        .level-text { color: var(--primary-color); }
+
+        .progress-container {
+            text-align: left;
+            background: rgba(0,0,0,0.4);
+            padding: 12px;
+            border-radius: 12px;
+        }
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .progress-bar-bg {
+            background-color: #222;
+            height: 12px;
+            border-radius: 10px;
+        }
+        .progress-bar-fill {
+            background: var(--primary-color);
+            height: 100%;
+            width: 90%; 
+            border-radius: 10px;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* 🎛 TUGMALAR VA SOZLAMALAR */
+        .action-menu {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .action-btn {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* ⚙️ SOZLAMALAR (MODAL OYNA) */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            display: none; /* Boshida yashirin turadi */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            border: 1px solid var(--primary-color);
+            padding: 25px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 0 30px var(--primary-glow);
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .modal-content h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #000;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 10px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .modal-content input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .save-btn {
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .cancel-btn {
+            background: transparent;
+            color: #aaa;
+            border: none;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Studio Elite</h1>
+    </div>
+
+    <div class="project-selector">
+        <select id="projectSelect" onchange="changeTheme()">
+            <option value="feniks">🔥 Asosiy Tema (Feniks)</option>
+            <option value="gravity">🌲 Gravity Falls</option>
+            <option value="spongebob">🍍 SpongeBob</option>
+            <option value="ben10">👽 Ben 10</option>
+            <option value="tales">🐉 Sin Mu (Tales of Herding Gods)</option>
+        </select>
+    </div>
+
+    <div class="profile-card">
+        
+        <div class="avatar-container" id="themeEmoji">🐦‍🔥</div>
+
+        <div class="username" id="displayUserName">Shohruxxon</div>
+        <div class="role" id="userRole">Rejissyor / Admin</div>
+
+        <div class="stats-container">
+            <div class="stat-box">
+                <h3>💰 Balans</h3>
+                <p class="balance-text" id="userBalance">1,250,000</p>
+            </div>
+            <div class="stat-box">
+                <h3>🌟 Level</h3>
+                <p class="level-text" id="userLevel">5</p>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-text">
+                <span id="projectText">Joriy loyiha: Feniks</span>
+                <span>4500 XP</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-menu">
+        <div class="action-btn" onclick="alert('Bot orqali topshiring')">
+            <span style="font-size: 24px;">🎙</span> Ovoz Topshirish
+        </div>
+        <div class="action-btn" onclick="openSettings()">
+            <span style="font-size: 24px;">⚙️</span> Sozlamalar
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-content" id="modalBox">
+            <h2>Profilni Tahrirlash</h2>
+            <input type="text" id="inputName" placeholder="Yangi ismingiz">
+            <input type="password" id="inputPassword" placeholder="Yangi parol (Login uchun)">
+            
+            <button class="save-btn" onclick="saveSettings()">Saqlash</button>
+            <button class="cancel-btn" onclick="closeSettings()">Bekor qilish</button>
+        </div>
+    </div>
+
+    <script>
+        // Xameleon Temalar
+        const themes = {
+            feniks: { color: '#ff5722', glow: 'rgba(255, 87, 34, 0.8)', bg: 'radial-gradient(circle at 50% 0%, #3a1000 0%, #0f0c0c 70%)', emoji: '🐦‍🔥', text: 'Joriy loyiha: Feniks' },
+            gravity: { color: '#00ffcc', glow: 'rgba(0, 255, 204, 0.8)', bg: 'radial-gradient(circle at 50% 0%, #002211 0%, #0a0a0a 70%)', emoji: '👁', text: 'Joriy loyiha: Gravity Falls' },
+            spongebob: { color: '#ffcc00', glow: 'rgba(255, 204, 0, 0.8)', bg: 'radial-gradient(circle at 50% 0%, #003366 0%, #001122 70%)', emoji: '🍍', text: 'Joriy loyiha: SpongeBob' },
+            ben10: { color: '#39ff14', glow: 'rgba(57, 255, 20, 0.8)', bg: 'radial-gradient(circle at 50% 0%, #003300 0%, #000000 70%)', emoji: '👽', text: 'Joriy loyiha: Ben 10' },
+            tales: { color: '#e74c3c', glow: 'rgba(231, 76, 60, 0.8)', bg: 'radial-gradient(circle at 50% 0%, #4a0e0e 0%, #1a0505 70%)', emoji: '🐉', text: 'Joriy qahramon: Sin Mu' }
+        };
+
+        function changeTheme() {
+            const select = document.getElementById('projectSelect').value;
+            const theme = themes[select];
+            
+            document.documentElement.style.setProperty('--primary-color', theme.color);
+            document.documentElement.style.setProperty('--primary-glow', theme.glow);
+            document.documentElement.style.setProperty('--bg-gradient', theme.bg);
+            
+            document.getElementById('themeEmoji').innerText = theme.emoji;
+            document.getElementById('projectText').innerText = theme.text;
+        }
+
+        // Modalli oynani ochish va yopish
+        function openSettings() {
+            const modal = document.getElementById('settingsModal');
+            const box = document.getElementById('modalBox');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                box.style.transform = 'scale(1)';
+            }, 10);
+            
+            // Hozirgi ismni inputga avtomat qo'yish
+            document.getElementById('inputName').value = document.getElementById('displayUserName').innerText;
+        }
+
+        function closeSettings() {
+            const modal = document.getElementById('settingsModal');
+            const box = document.getElementById('modalBox');
+            modal.style.opacity = '0';
+            box.style.transform = 'scale(0.8)';
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        }
+
+        function saveSettings() {
+            const newName = document.getElementById('inputName').value;
+            const newPass = document.getElementById('inputPassword').value;
+            
+            if(newName.trim() !== '') {
+                document.getElementById('displayUserName').innerText = newName;
+                
+                // Keyinchalik bu ma'lumotni Python botga yuboramiz
+                // Telegram.WebApp.sendData(JSON.stringify({type: "update_profile", name: newName, password: newPass}));
+                
+                alert("✅ Saqlandi! Yangi ism: " + newName);
+                closeSettings();
+            } else {
+                alert("Ism bo'sh bo'lishi mumkin emas!");
+            }
+        }
+    </script>
+</body>
+</html>
