@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Feniks Studio Elite</title>
+    <title>Feniks Cinema Elite</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     
@@ -11,99 +11,56 @@
         :root {
             --primary: #ff5722;
             --primary-glow: rgba(255, 87, 34, 0.8);
-            --glass-bg: rgba(20, 20, 25, 0.6);
+            --glass: rgba(20, 20, 25, 0.85);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
         body { background-color: #050505; color: #fff; overflow: hidden; }
         ::-webkit-scrollbar { display: none; }
 
-        /* =========================================
-           🌌 SOF CSS KOINOT VA YULDUZLAR (Hech qachon qotmaydi)
-           ========================================= */
+        /* 🌌 DINAMIK KOINOT FON */
         .universe-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
             z-index: -3;
         }
-
         .stars {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
-            background-repeat: repeat;
-            background-size: 200px 200px;
-            animation: twinkle 4s infinite alternate;
-            z-index: -2;
+            background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)), 
+                              radial-gradient(2px 2px at 100px 150px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat; background-size: 200px 200px;
+            animation: twinkle 4s infinite alternate; z-index: -2;
         }
+        @keyframes twinkle { from { opacity: 0.3; } to { opacity: 1; } }
 
-        @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 1; } }
-
-        /* 🎵 KIRISH EKRANI */
-        #introScreen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at center, #2a0800 0%, #000 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 9999; transition: opacity 0.8s ease;
-        }
-        
-        .pro-btn {
-            background: linear-gradient(135deg, #ff5722, #d84315); color: white; border: none; 
-            padding: 18px 45px; border-radius: 50px; font-size: 18px; font-weight: 900; 
-            letter-spacing: 2px; cursor: pointer; box-shadow: 0 10px 30px var(--primary-glow); 
-            text-transform: uppercase; animation: heartbeat 1.5s infinite;
-        }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-
-        /* 📖 SLAYDER KONTAYNERI */
+        /* 📖 SLIDER */
         #sliderContainer { display: flex; width: 100vw; height: 100vh; overflow-x: scroll; scroll-snap-type: x mandatory; scroll-behavior: smooth; }
-        .slide { min-width: 100vw; height: 100vh; scroll-snap-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 20px; }
-        .content-box { position: relative; z-index: 2; text-align: center; width: 100%; max-width: 380px; }
+        .slide { min-width: 100vw; height: 100vh; scroll-snap-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
 
-        /* 🦅 YANGI, BUZILMAYDIGAN 3D FENIKS EMOJI */
-        .giant-phoenix-emoji {
-            font-size: 120px;
-            margin-top: -30px; margin-bottom: 20px; display: inline-block;
-            filter: drop-shadow(0 0 30px #ff5722) drop-shadow(0 0 60px #d84315);
-            animation: floatPhoenix 3s ease-in-out infinite alternate;
+        /* 🧊 PROFIL KARTASI */
+        .profile-card { 
+            background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 35px; 
+            width: 100%; max-width: 340px; text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,0.6);
         }
-        @keyframes floatPhoenix { from { transform: translateY(0) scale(1); } to { transform: translateY(-15px) scale(1.1); } }
+        .user-name { font-size: 30px; font-weight: 900; margin-bottom: 5px; color: #fff; text-shadow: 0 0 20px var(--primary); }
+        .balance-box { background: rgba(0,0,0,0.5); padding: 20px; border-radius: 25px; margin-top: 20px; border: 1px solid var(--primary); }
+        .balance-box p { font-size: 24px; font-weight: 900; color: #4caf50; }
 
-        /* 🧊 SHISHASIMON KARTALAR */
-        .glass-panel { 
-            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15); border-top: 1px solid rgba(255,255,255,0.3);
-            padding: 25px; border-radius: 25px; margin-bottom: 20px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(255, 87, 34, 0.1); 
-        }
+        /* 🎬 MOVIE CARD (Cinema Style) */
+        .movie-card { width: 100%; max-width: 320px; position: relative; border-radius: 30px; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 15px 40px rgba(0,0,0,0.8); }
+        .movie-poster { width: 100%; height: 420px; object-fit: cover; filter: brightness(0.6); transition: 0.5s; }
+        .movie-info { position: absolute; bottom: 0; left: 0; width: 100%; padding: 25px; background: linear-gradient(transparent, rgba(0,0,0,1)); }
+        .movie-title { font-size: 26px; font-weight: 900; margin-bottom: 8px; color: #fff; }
         
-        .user-title { font-size: 28px; font-weight: 900; color: #fff; margin-bottom: 5px;}
-        .role-badge { 
-            display: inline-block; background: linear-gradient(90deg, #ff9800, #ff5722); 
-            padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 15px; 
+        .watch-btn {
+            background: linear-gradient(90deg, #ff5722, #d84315); color: #fff; border: none; padding: 15px; 
+            border-radius: 20px; font-weight: 900; cursor: pointer; width: 100%; font-size: 16px;
+            box-shadow: 0 10px 25px var(--primary-glow); display: flex; justify-content: center; align-items: center; gap: 10px;
         }
 
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
-        .stat-card { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
-        .stat-card h3 { font-size: 11px; color: #aaa; text-transform: uppercase; margin-bottom: 5px;}
-        .stat-card p { font-size: 22px; font-weight: 900; color: #4caf50; }
-        .stat-card .level-text { color: #ff9800; }
-
-        /* 🎛 TUGMALAR VA INPUTLAR */
-        .cyber-input { width: 100%; padding: 15px; margin-bottom: 12px; background: rgba(0,0,0,0.7); border: 1px solid #ff5722; color: #fff; border-radius: 12px; outline: none; font-size: 15px; }
-        .btn-glass { background: rgba(255, 87, 34, 0.2); border: 1px solid #ff5722; color: #fff; padding: 15px; border-radius: 15px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; margin-bottom: 10px; box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);}
-        .btn-glass.primary { background: #ff5722; box-shadow: 0 0 20px rgba(255, 87, 34, 0.6); }
-
-        .proj-title { font-size: 32px; font-weight: 900; text-transform: uppercase; margin-bottom: 5px; color: #00ffcc; text-shadow: 0 0 20px rgba(0, 255, 204, 0.5); }
-        .theme-sinmu .proj-title { color: #ff3333; text-shadow: 0 0 20px rgba(255, 51, 51, 0.5); }
-
-        .swipe-indicator { margin-top: 15px; color: rgba(255,255,255,0.5); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; animation: bounceX 2s infinite; }
-        @keyframes bounceX { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(10px); } }
+        .hint-text { margin-top: 25px; font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 3px; text-transform: uppercase; animation: float 2s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
     </style>
 </head>
 <body>
@@ -111,142 +68,69 @@
     <div class="universe-bg"></div>
     <div class="stars"></div>
 
-    <div id="introScreen">
-        <h1 style="font-size: 30px; font-weight: 900; margin-bottom: 40px; text-shadow: 0 0 20px #ff5722;">STUDIO ELITE</h1>
-        <button class="pro-btn" onclick="initApp()">TIZIMGA KIRISH</button>
-    </div>
-
-    <audio id="masterAudio" loop></audio>
-
     <div id="sliderContainer">
         
-        <div class="slide" data-track="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-            <div class="content-box">
-                <div class="giant-phoenix-emoji">🐦‍🔥</div>
+        <div class="slide">
+            <div class="profile-card">
+                <div style="font-size: 85px; margin-bottom: 10px; filter: drop-shadow(0 0 20px var(--primary));">🐦‍🔥</div>
+                <h2 class="user-name" id="userName">Shohruxxon</h2>
+                <div style="background: var(--primary); color: #fff; display: inline-block; padding: 4px 15px; border-radius: 10px; font-size: 10px; font-weight: 800; margin-bottom: 15px;" id="userRole">REJISSYOR</div>
                 
-                <div class="glass-panel">
-                    <div class="role-badge" id="userRoleBadge">Yuklanmoqda...</div>
-                    <h2 class="user-title" id="userName">Shohruxxon</h2>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <h3>Balans (UZS)</h3>
-                            <p id="userBalance">0</p>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Daraja</h3>
-                            <p class="level-text" id="userLevel">LVL 1</p>
-                        </div>
-                    </div>
+                <div class="balance-box">
+                    <h3 style="font-size: 10px; color: #aaa; text-transform: uppercase; margin-bottom: 5px;">Sizning joriy balansingiz</h3>
+                    <p id="userBalance">0 UZS</p>
                 </div>
+                <div style="margin-top: 15px; color: #ff9800; font-weight: 900; font-size: 18px;" id="userLevel">LVL 1 🌟</div>
+            </div>
+            <div class="hint-text">Loyihalarni tomosha qilish ➔</div>
+        </div>
 
-                <button class="btn-glass" onclick="sendTelegramCmd('changename')">⚙️ Profilni Sozlash</button>
-                <div class="swipe-indicator">Loyihalar ➔</div>
+        <div class="slide">
+            <div class="movie-card">
+                <img src="https://images.unsplash.com/photo-1577640905050-83665af216b9?q=80&w=1000" class="movie-poster">
+                <div class="movie-info">
+                    <h2 class="movie-title">Looney Tunes</h2>
+                    <p style="font-size: 13px; margin-bottom: 18px; color: #bbb;">S01E04: Quvnoq sarguzashtlar davom etadi.</p>
+                    <button class="watch-btn" onclick="openTelegramVideo('3634886616/47')">
+                        <span>▶</span> TOMOSHA QILISH
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div class="slide" id="adminSlide" style="display: none;" data-track="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
-            <div class="content-box">
-                <div class="giant-phoenix-emoji" style="font-size: 80px; filter: drop-shadow(0 0 30px #ff9800);">👑</div>
-                <h1 style="color: #ff9800; font-size: 26px; font-weight: 900; margin-bottom: 15px;">Boshqaruv Pulti</h1>
-                
-                <div class="glass-panel">
-                    <input type="text" id="admName" class="cyber-input" placeholder="Xodimning Ismi">
-                    <input type="text" id="admProject" class="cyber-input" placeholder="Loyiha">
-                    <input type="text" id="admRole" class="cyber-input" placeholder="Qahramon">
-                    <button class="btn-glass primary" onclick="saveAdminData()">💾 Tizimga Saqlash</button>
+        <div class="slide">
+            <div class="movie-card">
+                <img src="https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000" class="movie-poster">
+                <div class="movie-info">
+                    <h2 class="movie-title">Gravity Falls</h2>
+                    <p style="font-size: 13px; margin-bottom: 18px; color: #bbb;">Bill Cipher va sirlar dunyosi.</p>
+                    <button class="watch-btn" onclick="openTelegramVideo('Kanal_ID/Video_ID')">
+                        <span>▶</span> TOMOSHA QILISH
+                    </button>
                 </div>
-                <div class="swipe-indicator">Keyingi ➔</div>
-            </div>
-        </div>
-
-        <div class="slide" data-track="https://www.myinstants.com/media/sounds/gravity-falls-theme-song.mp3">
-            <div class="content-box">
-                <div class="giant-phoenix-emoji" style="font-size: 80px; filter: drop-shadow(0 0 30px #00ffcc);">🌲</div>
-                <h1 class="proj-title">Gravity Falls</h1>
-                <p style="color: #ccc; margin-bottom: 25px;">Mavjud qahramon: <b>Dipper / Bill</b></p>
-                
-                <div class="glass-panel">
-                    <button class="btn-glass primary" onclick="sendTelegramCmd('submit_gravity')">🎙 Fayl Yuklash</button>
-                </div>
-                <div class="swipe-indicator">Keyingi ➔</div>
-            </div>
-        </div>
-
-        <div class="slide theme-sinmu" data-track="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">
-            <div class="content-box">
-                <div class="giant-phoenix-emoji" style="font-size: 80px; filter: drop-shadow(0 0 30px #ff3333);">🐉</div>
-                <h1 class="proj-title">Tales of Herding Gods</h1>
-                <p style="color: #ccc; margin-bottom: 25px;">Mavjud qahramon: <b>Sin Mu</b></p>
-                
-                <div class="glass-panel">
-                    <button class="btn-glass primary" onclick="sendTelegramCmd('submit_sinmu')">🎙 Fayl Yuklash</button>
-                </div>
-                <div class="swipe-indicator">⬅️ Boshiga qaytish</div>
             </div>
         </div>
 
     </div>
 
     <script>
-        const BOT_USERNAME = "Shohruxxon27bot";
+        // Telegramdan kelgan ma'lumotlarni o'qish
         const urlParams = new URLSearchParams(window.location.search);
-        
         document.getElementById('userName').innerText = urlParams.get('name') || 'Shohruxxon';
-        const userRole = urlParams.get('role') || 'Rejissyor / Admin';
-        document.getElementById('userRoleBadge').innerText = userRole.toUpperCase();
-        document.getElementById('userBalance').innerText = parseInt(urlParams.get('balance') || '0').toLocaleString('uz-UZ');
-        document.getElementById('userLevel').innerText = `LVL ${urlParams.get('level') || '1'}`;
+        document.getElementById('userBalance').innerText = parseInt(urlParams.get('balance') || '0').toLocaleString('uz-UZ') + ' UZS';
+        document.getElementById('userLevel').innerText = 'LVL ' + (urlParams.get('level') || '1') + ' 🌟';
+        document.getElementById('userRole').innerText = (urlParams.get('role') || 'AKTYOR').toUpperCase();
 
-        if (userRole.toLowerCase().includes('rejissyor') || userRole.toLowerCase().includes('admin')) {
-            document.getElementById('adminSlide').style.display = 'flex';
+        // 🎬 Telegramdagi yopiq kanal videosini ochish funksiyasi
+        function openTelegramVideo(videoPath) {
+            // Yopiq kanal videolarini ochish uchun Telegram rasmiy ssilkasi
+            const videoLink = `https://t.me/c/${videoPath}`;
+            Telegram.WebApp.openTelegramLink(videoLink);
         }
 
-        const audioPlayer = document.getElementById('masterAudio');
-
-        function initApp() {
-            document.getElementById('introScreen').style.opacity = '0';
-            setTimeout(() => { document.getElementById('introScreen').style.display = 'none'; }, 800);
-            changeTrack(document.querySelector('.slide').getAttribute('data-track'));
-        }
-
-        function changeTrack(src) {
-            if (src && audioPlayer.src !== src) {
-                audioPlayer.src = src;
-                audioPlayer.volume = 0.6;
-                let playPromise = audioPlayer.play();
-                if (playPromise !== undefined) playPromise.catch(e => console.log("Musiqa kutilmoqda"));
-            }
-        }
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) changeTrack(entry.target.getAttribute('data-track'));
-            });
-        }, { threshold: 0.6 });
-
-        document.querySelectorAll('.slide').forEach(slide => observer.observe(slide));
-
-                function sendTelegramCmd(command) {
-            // Telegramning rasmiy API orqali yashirin buyruq yuborish
-            const url = `https://t.me/${BOT_USERNAME}?start=${command}`;
-            Telegram.WebApp.openTelegramLink(url);
-            
-            // Va oynani silliq yopish
-            setTimeout(() => {
-                Telegram.WebApp.close();
-            }, 100);
-        }
-
-
-        function saveAdminData() {
-            const name = document.getElementById('admName').value.trim().replace(/\s+/g, '_');
-            const proj = document.getElementById('admProject').value.trim().replace(/\s+/g, '_');
-            const role = document.getElementById('admRole').value.trim().replace(/\s+/g, '_') || 'Noma_lum';
-
-            if (!name || !proj) { alert("Ism va Loyihani to'ldiring!"); return; }
-            sendTelegramCmd(`admset_${name}_${proj}_${role}`);
-        }
+        // WebApp-ni to'liq ekranga yoyish
+        Telegram.WebApp.ready();
+        Telegram.WebApp.expand();
     </script>
 </body>
 </html>
