@@ -313,7 +313,7 @@
         </div>
     </div>
 
-    <script>
+        <script>
         // Xameleon Temalar
         const themes = {
             feniks: { color: '#ff5722', glow: 'rgba(255, 87, 34, 0.8)', bg: 'radial-gradient(circle at 50% 0%, #3a1000 0%, #0f0c0c 70%)', emoji: '🐦‍🔥', text: 'Joriy loyiha: Feniks' },
@@ -345,7 +345,6 @@
                 box.style.transform = 'scale(1)';
             }, 10);
             
-            // Hozirgi ismni inputga avtomat qo'yish
             document.getElementById('inputName').value = document.getElementById('displayUserName').innerText;
         }
 
@@ -359,19 +358,49 @@
 
         function saveSettings() {
             const newName = document.getElementById('inputName').value;
-            const newPass = document.getElementById('inputPassword').value;
             
             if(newName.trim() !== '') {
                 document.getElementById('displayUserName').innerText = newName;
-                
-                // Keyinchalik bu ma'lumotni Python botga yuboramiz
-                // Telegram.WebApp.sendData(JSON.stringify({type: "update_profile", name: newName, password: newPass}));
-                
                 alert("✅ Saqlandi! Yangi ism: " + newName);
                 closeSettings();
             } else {
                 alert("Ism bo'sh bo'lishi mumkin emas!");
             }
+        }
+
+        // =========================================================
+        // 🔄 BOTDAN KELGAN MAXFIY MA'LUMOTLARNI QABUL QILISH
+        // =========================================================
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Agar ssilka orqali botdan ma'lumot kelsa o'shani oladi, kelmasa "Shohruxxon" va standart sonlar turadi
+        const uName = urlParams.get('name') || 'Shohruxxon';
+        const uBalance = urlParams.get('balance') || '0';
+        const uLevel = urlParams.get('level') || '1';
+        const uXp = urlParams.get('xp') || '0';
+        const uRole = urlParams.get('role') || 'Rejissyor / Admin';
+
+        // Ularni ekrandagi joylariga (HTML dagi ID lar bo'yicha) joylashtirish
+        document.getElementById('displayUserName').innerText = uName;
+        document.getElementById('userBalance').innerText = parseInt(uBalance).toLocaleString('uz-UZ'); // Pullarni chiroyli formatlaydi (Masalan: 1 250 000)
+        document.getElementById('userLevel').innerText = uLevel;
+        document.getElementById('userRole').innerText = uRole;
+        
+        // XP matnini yangilash
+        const progressSpans = document.querySelectorAll('.progress-text span');
+        if(progressSpans.length > 1) {
+            progressSpans[1].innerText = uXp + ' / 5000 XP';
+        }
+
+        // XP foizini hisoblash (5000 XP = 100% deb olamiz)
+        let xpPercent = (parseInt(uXp) / 5000) * 100;
+        if(xpPercent > 100) xpPercent = 100;
+
+        // Ilova ochilganda XP bar to'lishi animatsiyasi
+        window.onload = function() {
+            setTimeout(() => {
+                document.querySelector('.progress-bar-fill').style.width = xpPercent + '%';
+            }, 300); 
         }
     </script>
 </body>
